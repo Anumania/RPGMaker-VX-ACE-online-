@@ -11,3 +11,5 @@ Ontop of this being my second c++ program, it is also way too ambitious, and thu
 Im sorry.
 
 While i do eventually want to tackle trying to do simmilar with other classic rpgmaker games, im not a very good programmer, and i only own vx ace. Rpgmaker also does a funny where the scripting language changes each time they release, so multiplayer could entirely be impossible for some versions.
+
+WARNING: THIS DOES JACK SHIT WITHOUT THE OTHER 2 PARTS THAT I CURRENTLY HAVE NOT UPLOADED TO GIT.
