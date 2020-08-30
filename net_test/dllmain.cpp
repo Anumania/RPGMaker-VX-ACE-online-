@@ -54,7 +54,6 @@ void thred(int sockey) {
         if (socketNum != INVALID_SOCKET) {
             char recsbuf[DEFAULT_BUFLEN];
             int aresult = recv(sockey, recvbuf, recvbuflen, 0);
-            printf("im in");
         }
         Sleep(15);
     }
@@ -163,7 +162,6 @@ static net bruh;
 fn_export int a_net_setup(char* message)
 {   
     int a = bruh.net_init_a(message);
-    printf("got here");
     std::thread (thred, a).detach();
     return a;
 }
