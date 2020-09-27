@@ -1,4 +1,4 @@
-// dllmain.cpp : Defines the entry point for the DLL application.
+// dllmain.cpp : Defines the entry point for the DLL appication.
 #define fn_export extern "C" __declspec (dllexport)
 #define WIN32_LEAN_AND_MEAN
 //#define _CRT_SECURE_NO_WARNINGS
@@ -23,12 +23,12 @@
 #pragma comment (lib, "AdvApi32.lib")
 
 
-#define DEFAULT_BUFLEN 512
+#define DEFAULT_BUFLEN 64
 #define DEFAULT_PORT "27015"
 
 char argv[20][20];
 const int argc = 2;
-const char* ip = "25.79.38.131";
+const char* ip = "192.168.7.117";
 
 WSADATA wsaData;
 SOCKET ConnectSocket = INVALID_SOCKET;
@@ -39,9 +39,6 @@ struct addrinfo* result = NULL,
 char recvbuf[DEFAULT_BUFLEN];
 int iResult;
 int recvbuflen = DEFAULT_BUFLEN;
-//std::thread th1;
-//static char* result;
-
 bool yeah;
 
 char* input = (char*)"";
@@ -54,6 +51,7 @@ void thred(int sockey) {
         if (socketNum != INVALID_SOCKET) {
             char recsbuf[DEFAULT_BUFLEN];
             int aresult = recv(sockey, recvbuf, recvbuflen, 0);
+            //printf("%u", strlen(recsbuf));
         }
         Sleep(15);
     }
@@ -62,8 +60,6 @@ void thred(int sockey) {
 
 fn_export class net {
 public:
-
-    
     int net_init_a(char* message) {
         yeah = true;
         const char* sendbuf = message;
@@ -73,7 +69,7 @@ public:
             return 1;
         }
 
-        
+
 
         // Initialize Winsock
         iResult = WSAStartup(MAKEWORD(2, 2), &wsaData);
@@ -125,35 +121,8 @@ public:
             WSACleanup();
             return 1;
         }
-        
+
         return ConnectSocket;
-    }
-    int net_send_a(int sockey, char* message)
-    {
-        if (sockey == INVALID_SOCKET) {
-            return 1;
-        }
-        
-
-        iResult = send(sockey, message, (int)strlen(message), 0);
-        if (iResult == SOCKET_ERROR) {
-            printf("send failed with error: %d\n", WSAGetLastError());
-            //closesocket(ConnectSocket);
-            //WSACleanup();
-            return 1;
-        }
-        return 0;
-    }
-    char* net_receive_a(int socket) {
-        //std::cout << "buff says: ";
-        //char* bruh = recvbuf;
-        return recvbuf;//bruh;
-    }
-    int net_disconnect_a(int socket) {
-
-        closesocket(ConnectSocket);
-        WSACleanup();
-        return 0;
     }
 };
 
@@ -165,16 +134,38 @@ fn_export int a_net_setup(char* message)
     std::thread (thred, a).detach();
     return a;
 }
-fn_export int a_net_send(int socket, char* message)
-{
-    return bruh.net_send_a(socket, message);
+fn_export int a_net_send(int socket, char* message, int len)
+{   
+    try {
+        
+        if (socket == INVALID_SOCKET) {
+            return 1;
+        }
+        
+        iResult = send(socket, message, len, 0);
+        if (iResult == SOCKET_ERROR) {
+            printf("send failed with error: %d\n", WSAGetLastError());
+            //closesocket(ConnectSocket);
+            //WSACleanup();
+            return 1;
+        }
+        
+    }
+    catch (std::exception e) {
+        //std::cout << (e.what());
+        printf("what");
+    }
+    return 0;
 }
-fn_export char* a_net_receive(int socket) {
-
-    //printf(bruh2);
-    return bruh.net_receive_a(socket);
+fn_export char* a_net_receive(int socket, char* test) {
+    for (int i = 0; i < DEFAULT_BUFLEN; i++) {
+        test[i] = (int)recvbuf[i];
+    }
+    return recvbuf;//ary;
 }
 fn_export int a_net_disconnect(int socket)
 {
-    return bruh.net_disconnect_a(socket);
+    closesocket(ConnectSocket);
+    WSACleanup();
+    return 0;
 }
