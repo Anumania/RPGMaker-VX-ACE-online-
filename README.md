@@ -10,3 +10,5 @@ Also im planning on making this work with every version of rpgmaker, rpgmaker vx
 installation instructions: follow the steps on https://github.com/Anumania/RPGMaker_universal_modloader, then go to releases on this page and download the 2 files, net_test.dll, and Scripts.rvdata2. place Scripts.rvdata2 in the same directory as the exe, and place net_test.dll into the System folder next to the exe. load save 16, and press connect. currently you will probably almost definitely crash unless you are playing Lisa: the painful RPG, but im working on making that not happen.
 
 source files: NetStuff.rb is the ruby side of networking, net_test is a vc++ dll that allows rpgmaker to send and recieve tcp communications (poorly).
+
+if the server is down, lmk at discord: Bread Man#8916 
