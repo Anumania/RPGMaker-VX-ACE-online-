@@ -1,7 +1,7 @@
 # RPGMaker-VX-ACE-online-
 Frankenstein
 
-funny little multiplayer mod idea, use my modloader (https://github.com/Anumania/RPGMaker_universal_modloader) to load this and you can play any rpgmaker vx ace game online with your friends. ~~Currently i am hosting the server, but if you want to host your own, compile this using a different ip, weather that be a localhost, hamachi ip, whatever.
+funny little multiplayer mod idea, use my modloader (https://github.com/Anumania/RPGMaker_universal_modloader) to load this and you can play any rpgmaker vx ace game online with your friends. ~~Currently i am hosting the server, but if you want to host your own, compile this using a different ip, weather that be a localhost, hamachi ip, whatever.~~
 
 lol nvm im keeping the server private until it looks less shit.
 
