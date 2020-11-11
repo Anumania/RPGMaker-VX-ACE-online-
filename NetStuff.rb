@@ -1,5 +1,5 @@
 class NetStuff
-  @char_name = "ppl3"
+  @char_name = "ppl"
   @char_index = 0
   @char_direction = 2;
   @@eks = 0
@@ -20,7 +20,7 @@ class NetStuff
     net = Win32API.new("System/net_test.dll","a_net_setup","p","l")
     @@socket = net.call("")
     send = Win32API.new("System/net_test.dll","a_net_send", "lpl","l")
-    send.call(@@socket,"init", "init".length)
+    #send.call(@@socket,"init", "init".length)
   end
   def self.send(message)
     send = Win32API.new("System/net_test.dll","a_net_send", "lpl","l")
@@ -92,7 +92,7 @@ class NetStuff
       $game_map.events[event_id].y = NetStuff.GetY()
       $game_map.need_refresh = true
       $game_map.events[event_id].refresh
-      $game_map.events[event_id].set_graphic(NetStuff.char_name,NetStuff.char_index) rescue print('graphic does not exist')
+      $game_map.events[event_id].set_graphic(NetStuff.char_name,NetStuff.char_index) 
       $game_map.events[event_id].set_direction(NetStuff.char_direction)
       if(($game_map.events[event_id].real_x - $game_map.events[event_id].x).abs > 5) then
         $game_map.events[event_id].real_x = $game_map.events[event_id].x
@@ -109,8 +109,6 @@ class NetStuff
       "
       ev.pages[0].list[0] = RPG::EventCommand.new(355, 0, [strg, ""])
       ev.pages[0].list[1] = RPG::EventCommand.new()
-      #ev.pages[0].list[0].parameters = [strg]
-      #$ev.pages
       Game_Event.new(@map_id, ev)
       $game_map.need_refresh = true
       game_ev = Game_Event.new($game_map.map_id, ev)    
@@ -182,6 +180,7 @@ end
 class Game_Map
   alias NetStuff_GameMap_Setup setup 
   def setup(map_id)
+    #DataManager.save_game(69)
     NetStuff_GameMap_Setup(map_id)
     NetStuff.create_ev2($game_player.x,$game_player.y)
   end  
@@ -237,3 +236,34 @@ end
 
 
 
+module Cache
+  def self.normal_bitmap(path)
+    begin
+    @cache[path] = Bitmap.new(path) unless include?(path)
+    rescue => a
+    @cache[path] = empty_bitmap
+    end
+    @cache[path]
+  end
+end
+
+class Sprite_Character < Sprite_Base
+  def set_character_bitmap
+    self.bitmap = Cache.character(@character_name)
+    begin
+      sign = @character_name[/^[\!\$]./] 
+      rescue => e 
+        msgbox(e)
+        msgbox(@character_name)
+      end
+    if sign && sign.include?('$')
+      @cw = bitmap.width / 3
+      @ch = bitmap.height / 4
+    else
+      @cw = bitmap.width / 12
+      @ch = bitmap.height / 8
+    end
+    self.ox = @cw / 2
+    self.oy = @ch
+  end
+end
