@@ -28,7 +28,7 @@
 
 char argv[20][20];
 const int argc = 2;
-const char* ip = "192.168.7.117";
+const char* ip = "34.67.95.80";
 
 WSADATA wsaData;
 SOCKET ConnectSocket = INVALID_SOCKET;
@@ -51,7 +51,7 @@ void thred(int sockey) {
         if (socketNum != INVALID_SOCKET) {
             char recsbuf[DEFAULT_BUFLEN];
             int aresult = recv(sockey, recvbuf, recvbuflen, 0);
-            //printf("%u", strlen(recsbuf));
+            //printf("%u", strlen(recsbuf));  
         }
         Sleep(15);
     }
