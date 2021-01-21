@@ -11,5 +11,6 @@ installation instructions: follow the steps on https://github.com/Anumania/RPGMa
 source files: NetStuff.rb is the ruby side of networking, net_test is a vc++ dll that allows rpgmaker to send and recieve tcp communications (poorly).
 
 ~~if the server is down, lmk at discord: Bread Man#8916 ~~
+
  lol lol i stopped hosting it because the code is so poorly optimized that the server was always 100% so im gonna retry the server code and go againe 
 
